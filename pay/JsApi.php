@@ -38,11 +38,11 @@ class JsApi
             'notify_url' => $NotifyUrl,
             'amount' => [
                 'total' => $Total,
-                'currency' => $Currency,
+                'currency' => $Currency
             ],
             'attach' => $Attach,
             'payer' => [
-                'openid' => $OpenId,
+                'openid' => $OpenId
             ]
         ];
         $time = time();
@@ -65,7 +65,7 @@ class JsApi
             'Content-Type: application/json',
             'Accept: application/json',
             'User-Agent: */*',
-            'Authorization: '.$authorization,
+            'Authorization: '.$authorization
         ];
         $bodies = json_decode(Curl::GetBody(Curl::Post($url,$body,$header)),true);
         if (!is_array($bodies)){

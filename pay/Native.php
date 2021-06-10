@@ -37,7 +37,7 @@ class Native
             'notify_url' => $NotifyUrl,
             'amount' => [
                 'total' => $Total,
-                'currency' => $Currency,
+                'currency' => $Currency
             ],
             'attach' => $Attach
         ];
@@ -61,7 +61,7 @@ class Native
             'Content-Type: application/json',
             'Accept: application/json',
             'User-Agent: */*',
-            'Authorization: '.$authorization,
+            'Authorization: '.$authorization
         ];
         return Curl::GetBody(Curl::Post($url,$body,$header));
     }

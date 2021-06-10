@@ -39,7 +39,7 @@ class Publics
             'Content-Type: application/json',
             'Accept: application/json',
             'User-Agent: */*',
-            'Authorization: '.$authorization,
+            'Authorization: '.$authorization
         ];
         return Curl::GetBody(Curl::Get($url,$header));
     }
@@ -70,7 +70,7 @@ class Publics
             'Content-Type: application/json',
             'Accept: application/json',
             'User-Agent: */*',
-            'Authorization: '.$authorization,
+            'Authorization: '.$authorization
         ];
         return Curl::GetBody(Curl::Get($url,$header));
     }
@@ -107,7 +107,7 @@ class Publics
             'Content-Type: application/json',
             'Accept: application/json',
             'User-Agent: */*',
-            'Authorization: '.$authorization,
+            'Authorization: '.$authorization
         ];
         return Curl::GetBody(Curl::Post($url,$body,$header));
     }
@@ -136,8 +136,8 @@ class Publics
             'amount' => [
                 'refund' => $Refund,
                 'total' => $Total,
-                'currency' => $Currency,
-            ],
+                'currency' => $Currency
+            ]
         ];
         if ($NotifyUrl !== ''){
             $bodies['notify_url'] = $NotifyUrl;
@@ -161,7 +161,7 @@ class Publics
             'Content-Type: application/json',
             'Accept: application/json',
             'User-Agent: */*',
-            'Authorization: '.$authorization,
+            'Authorization: '.$authorization
         ];
         return Curl::GetBody(Curl::Post($url,$body,$header));
     }
@@ -190,8 +190,8 @@ class Publics
             'amount' => [
                 'refund' => $Refund,
                 'total' => $Total,
-                'currency' => $Currency,
-            ],
+                'currency' => $Currency
+            ]
         ];
         if ($NotifyUrl !== ''){
             $bodies['notify_url'] = $NotifyUrl;
@@ -215,7 +215,7 @@ class Publics
             'Content-Type: application/json',
             'Accept: application/json',
             'User-Agent: */*',
-            'Authorization: '.$authorization,
+            'Authorization: '.$authorization
         ];
         return Curl::GetBody(Curl::Post($url,$body,$header));
     }
@@ -246,7 +246,7 @@ class Publics
             'Content-Type: application/json',
             'Accept: application/json',
             'User-Agent: */*',
-            'Authorization: '.$authorization,
+            'Authorization: '.$authorization
         ];
         return Curl::GetBody(Curl::Get($url,$header));
     }

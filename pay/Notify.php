@@ -74,7 +74,7 @@ class Notify
      * @return string
      */
     public static function DecryptCipherText(string $CipherText, string $AssociatedData, string $Nonce, string $ApiV3Secret) : string {
-        $CipherText = \base64_decode($CipherText);
+        $CipherText = base64_decode($CipherText);
         if (strlen($CipherText) <= 16) {
             return 'Error: `CipherText` length less than or equal 16';
         }
@@ -108,6 +108,7 @@ class Notify
         } catch (SodiumException $e){
             return 'AEAD_AES_256_GCM需要PHP 7.1以上或者安装libsodium-php,'.$e->getMessage();
         }
+        return 'Error: decryption not performed';
     }
 
 }
