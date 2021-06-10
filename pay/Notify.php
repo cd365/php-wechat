@@ -2,6 +2,7 @@
 
 namespace xooooooox\wechat\pay;
 
+use ErrorException;
 use SodiumException;
 
 /**
@@ -24,7 +25,7 @@ class Notify
      * @param string $Body 微信回调通知正文信息: http.body
      * @return bool
      */
-    public static function VerifySignature(string $MchId = '', string $MchPrivateKeyContent = '', string $MchCertSerialNo = '', string $ApiV3Secret = '', string $Nonce = '', string $Signature = '', string $Timestamp = '', string $Body = '') : bool {
+    public static function VerifySignature(string $MchId, string $MchPrivateKeyContent, string $MchCertSerialNo, string $ApiV3Secret, string $Nonce, string $Signature, string $Timestamp, string $Body) : bool {
         $certLists = SignCertificates::Lists($MchId,$MchPrivateKeyContent,$MchCertSerialNo);
         $certs = json_decode($certLists,true);
         if (!isset($certs['data'])) {
@@ -52,9 +53,13 @@ class Notify
             if (!is_string($cert)){
                 continue;
             }
-            $ok = openssl_verify($str,$Signature,$cert,OPENSSL_ALGO_SHA256);
-            if (is_bool($ok) && $ok === true){
-                return true;
+            try {
+                $ok = (bool)openssl_verify($str,$Signature,$cert,OPENSSL_ALGO_SHA256);
+                if ($ok){
+                    return true;
+                }
+            } catch (ErrorException $e) {
+                continue;
             }
         }
         return false;
@@ -68,15 +73,40 @@ class Notify
      * @param string $ApiV3Secret 微信支付V3秘钥
      * @return string
      */
-    public static function DecryptCipherText(string $CipherText = '', string $AssociatedData = '', string $Nonce = '', string $ApiV3Secret = '') : string {
+    public static function DecryptCipherText(string $CipherText, string $AssociatedData, string $Nonce, string $ApiV3Secret) : string {
+        $CipherText = \base64_decode($CipherText);
+        if (strlen($CipherText) <= 16) {
+            return 'Error: `CipherText` length less than or equal 16';
+        }
         try {
-            $result = sodium_crypto_aead_aes256gcm_decrypt($CipherText,$AssociatedData,$Nonce,$ApiV3Secret);
-            if (is_bool($result) && $result === false) {
-                return 'Error: decrypt failed';
+            // ext-sodium (default installed on >= PHP 7.2)
+            if (function_exists('\sodium_crypto_aead_aes256gcm_is_available') && \sodium_crypto_aead_aes256gcm_is_available()) {
+                $result = \sodium_crypto_aead_aes256gcm_decrypt($CipherText, $AssociatedData, $Nonce, $ApiV3Secret);
+                if (!is_string($result)){
+                    return 'Error: decrypt failed';
+                }
+                return $result;
             }
-            return (string)$result;
-        } catch (SodiumException $e) {
-            return 'Error: '.$e->getMessage();
+            // ext-libsodium (need install libsodium-php 1.x via pecl)
+            if (function_exists('\Sodium\crypto_aead_aes256gcm_is_available') && \Sodium\crypto_aead_aes256gcm_is_available()) {
+                $result = \Sodium\crypto_aead_aes256gcm_decrypt($CipherText, $AssociatedData, $Nonce, $ApiV3Secret);
+                if (!is_string($result)){
+                    return 'Error: decrypt failed';
+                }
+                return $result;
+            }
+            // openssl (PHP >= 7.1 support AEAD)
+            if (PHP_VERSION_ID >= 70100 && in_array('aes-256-gcm', \openssl_get_cipher_methods())) {
+                $ctext = substr($CipherText, 0, -16);
+                $authTag = substr($CipherText, -16);
+                $result = \openssl_decrypt($ctext, 'aes-256-gcm', $ApiV3Secret, \OPENSSL_RAW_DATA, $Nonce, $authTag, $AssociatedData);
+                if (!is_string($result)){
+                    return 'Error: decrypt failed';
+                }
+                return $result;
+            }
+        } catch (SodiumException $e){
+            return 'AEAD_AES_256_GCM需要PHP 7.1以上或者安装libsodium-php,'.$e->getMessage();
         }
     }
 

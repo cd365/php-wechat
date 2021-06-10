@@ -28,7 +28,7 @@ class SignCertificates
      * @param string $MchCertSerialNo 商户证书序列号
      * @return string
      */
-    public static function Lists(string $MchId = '', string $MchPrivateKeyContent = '', string $MchCertSerialNo = '') : string {
+    public static function Lists(string $MchId, string $MchPrivateKeyContent, string $MchCertSerialNo) : string {
         $method = 'GET';
         $url = self::$UrlCertList;
         $timestamp = (string)time();

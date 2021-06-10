@@ -15,7 +15,7 @@ class SignV3
      * @param string $url
      * @return string
      */
-    public static function GetAbsUrlPath(string $url = '') : string {
+    public static function GetAbsUrlPath(string $url) : string {
         $urls = parse_url($url);
         if (!isset($urls['path'])){
             return '';
@@ -39,7 +39,7 @@ class SignV3
      * @param string $Body
      * @return string
      */
-    public static function PackageSignOriginStr(string $Method = '', string $Url = '', string $Timestamp = '', string $Nonce = '', string $Body = '') : string {
+    public static function PackageSignOriginStr(string $Method, string $Url, string $Timestamp, string $Nonce, string $Body) : string {
         $Newline = "\n";
         $Method = strtoupper($Method);
         $first = substr($Url,0,1);
@@ -59,7 +59,7 @@ class SignV3
      * @param string $MchPrivateKeyContent 微信商户私钥内容
      * @return string
      */
-    public static function EncryptRsaBase64(string $Str = '', string $MchPrivateKeyContent = '') : string {
+    public static function EncryptRsaBase64(string $Str, string $MchPrivateKeyContent = '') : string {
         $sign = '';
         openssl_sign($Str,$sign, $MchPrivateKeyContent,'sha256WithRSAEncryption');
         if ($sign === ''){
@@ -80,7 +80,7 @@ class SignV3
      * @param string $MchCertSerialNo 商户证书序列号
      * @return string
      */
-    public static function CountAuthorization(string $Method = '', string $Url = '', string $Timestamp = '', string $Nonce = '', string $Body = '', string $MchPrivateKeyContent = '', string $MchId = '', string $MchCertSerialNo = '') : string {
+    public static function CountAuthorization(string $Method, string $Url, string $Timestamp, string $Nonce, string $Body, string $MchPrivateKeyContent, string $MchId, string $MchCertSerialNo) : string {
         $Str = self::PackageSignOriginStr($Method,$Url,$Timestamp,$Nonce,$Body);
         $signature = self::EncryptRsaBase64($Str,$MchPrivateKeyContent);
         $schema = 'WECHATPAY2-SHA256-RSA2048';
