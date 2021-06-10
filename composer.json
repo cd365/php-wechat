@@ -12,9 +12,7 @@
   "require": {
     "php": ">=7.4",
     "xooooooox/http": "^1.0",
-    "xooooooox/nonce": "^1.0",
-    "ext-openssl": "Required to use HTTPS.",
-    "ext-sodium": "Required to use Decrpty."
+    "xooooooox/nonce": "^1.0"
   },
   "autoload": {
     "psr-4": {
@@ -22,6 +20,8 @@
     }
   },
   "suggest": {
+    "ext-openssl": "Required to use HTTPS.",
+    "ext-sodium": "Required to use Decrpty.",
     "ext-json": "Required to use JSON."
   }
 }
