@@ -1,0 +1,97 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "0dc92f7e398316ee06003a62717672f8",
+    "packages": [
+        {
+            "name": "xooooooox/http",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xooooooox/php-http.git",
+                "reference": "90e0b2d8c9bc75cf7bf2c338883cb3962b58a60a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xooooooox/php-http/zipball/90e0b2d8c9bc75cf7bf2c338883cb3962b58a60a",
+                "reference": "90e0b2d8c9bc75cf7bf2c338883cb3962b58a60a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "xooooooox\\http\\": "./"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "xooooooox",
+                    "email": "718337253@qq.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "php http client",
+            "support": {
+                "issues": "https://github.com/xooooooox/php-http/issues",
+                "source": "https://github.com/xooooooox/php-http/tree/1.0.2"
+            },
+            "time": "2021-06-09T08:28:05+00:00"
+        },
+        {
+            "name": "xooooooox/nonce",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xooooooox/php-nonce.git",
+                "reference": "ca4532a50029611cf1fc03b07eb8e2623e1727a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xooooooox/php-nonce/zipball/ca4532a50029611cf1fc03b07eb8e2623e1727a8",
+                "reference": "ca4532a50029611cf1fc03b07eb8e2623e1727a8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "xooooooox\\nonce\\": "./"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "xooooooox",
+                    "email": "718337253@qq.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "php nonce",
+            "support": {
+                "issues": "https://github.com/xooooooox/php-nonce/issues",
+                "source": "https://github.com/xooooooox/php-nonce/tree/1.0.0"
+            },
+            "time": "2021-06-09T06:47:40+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=7.0"
+    },
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
+}

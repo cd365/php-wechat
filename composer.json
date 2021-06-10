@@ -1,0 +1,27 @@
+{
+  "name": "xooooooox/wechat",
+  "type": "library",
+  "description": "php wechat",
+  "authors": [
+    {
+      "name": "xooooooox",
+      "email": "718337253@qq.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "xooooooox/http": "^1.0",
+    "xooooooox/nonce": "^1.0",
+    "ext-openssl": "Required to use HTTPS.",
+    "ext-sodium": "Required to use Decrpty."
+  },
+  "autoload": {
+    "psr-4": {
+      "xooooooox\\wechat\\": "./"
+    }
+  },
+  "suggest": {
+    "ext-json": "Required to use JSON."
+  }
+}
