@@ -143,6 +143,43 @@ class App
     }
 
     /**
+     * 关闭订单
+     * @param string $MchId
+     * @param string $MchPrivateKeyContent
+     * @param string $MchCertSerialNo
+     * @param string $OutTradeNo
+     * @return string
+     */
+    public static function Close(string $MchId, string $MchPrivateKeyContent, string $MchCertSerialNo, string $OutTradeNo) : string {
+        $url = 'https://api.mch.weixin.qq.com/v3/pay/transactions/out-trade-no/'.$OutTradeNo.'/close';
+        $bodies = [
+            'mchid' => $MchId
+        ];
+        $time = time();
+        $method = 'POST';
+        $timestamp = (string)$time;
+        $nonce = strtoupper(md5(Str::Nonce(32)));
+        $body = json_encode($bodies);
+        $authorization = SignV3::CountAuthorization(
+            $method,
+            $url,
+            $timestamp,
+            $nonce,
+            $body,
+            $MchPrivateKeyContent,
+            $MchId,
+            $MchCertSerialNo
+        );
+        $header = [
+            'Content-Type: application/json',
+            'Accept: application/json',
+            'User-Agent: */*',
+            'Authorization: '.$authorization,
+        ];
+        return Curl::GetBody(Curl::Post(self::$UrlPlace,$body,$header));
+    }
+
+    /**
      * 申请退款
      * @param string $MchId 商户号
      * @param string $MchPrivateKeyContent 商户私钥内容
@@ -244,6 +281,37 @@ class App
             'Authorization: '.$authorization,
         ];
         return Curl::GetBody(Curl::Post($url,$body,$header));
+    }
+
+    /**
+     * 查询退款
+     * @param string $MchId
+     * @param string $MchPrivateKeyContent
+     * @param string $MchCertSerialNo
+     * @param string $OutRefundNo
+     * @return string
+     */
+    public static function QueryRefunds(string $MchId, string $MchPrivateKeyContent, string $MchCertSerialNo, string $OutRefundNo) : string {
+        $url = 'https://api.mch.weixin.qq.com/v3/refund/domestic/refunds/'.$OutRefundNo;
+        $timestamp = (string)time();
+        $nonce = strtoupper(md5(Str::Nonce(32)));
+        $authorization = SignV3::CountAuthorization(
+            'GET',
+            $url,
+            $timestamp,
+            $nonce,
+            '',
+            $MchPrivateKeyContent,
+            $MchId,
+            $MchCertSerialNo
+        );
+        $header = [
+            'Content-Type: application/json',
+            'Accept: application/json',
+            'User-Agent: */*',
+            'Authorization: '.$authorization,
+        ];
+        return Curl::GetBody(Curl::Get($url,$header));
     }
 
 }
