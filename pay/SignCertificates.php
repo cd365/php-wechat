@@ -14,14 +14,6 @@ class SignCertificates
 {
 
     /**
-     * get wechat certificates list url
-     * @var string
-     */
-    public static string $UrlCertList = 'https://api.mch.weixin.qq.com/v3/certificates';
-
-
-
-    /**
      * 获取平台证书列表(微信支付平台证书, 不是商户API证书) https://pay.weixin.qq.com/wiki/doc/apiv3/wechatpay/wechatpay5_1.shtml
      * @param string $MchId 商户号
      * @param string $MchPrivateKeyContent 微信商户私钥
@@ -30,7 +22,7 @@ class SignCertificates
      */
     public static function Lists(string $MchId, string $MchPrivateKeyContent, string $MchCertSerialNo) : string {
         $method = 'GET';
-        $url = self::$UrlCertList;
+        $url = 'https://api.mch.weixin.qq.com/v3/certificates';
         $timestamp = (string)time();
         $nonce = strtoupper(md5(Str::Nonce(32)));
         $authorization = SignV3::CountAuthorization(

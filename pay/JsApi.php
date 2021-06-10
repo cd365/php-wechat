@@ -6,28 +6,29 @@ use xooooooox\http\client\Curl;
 use xooooooox\nonce\Str;
 
 /**
- * 微信APP支付
- * Class App
+ * 微信JsApi支付
+ * Class Jsapi
  * @package xooooooox\wechat\pay
  */
-class App
+class JsApi
 {
 
     /**
-     * 微信支付-APP-下单
-     * @param string $MchId 商户号
-     * @param string $MchPrivateKeyContent 商户私钥内容
-     * @param string $MchCertSerialNo 商户证书序列号
-     * @param string $AppId 应用ID
-     * @param string $OutTradeNo 直营商户订单号
-     * @param string $Description 订单商品描述
-     * @param string $NotifyUrl 回调通知地址
-     * @param int $Total 订单支付总金额 单位: 分
-     * @param string $Attach 订单附加数据
-     * @param string $Currency 支付币种, 默认 CNY:人民币
+     * JsApi下单
+     * @param string $MchId
+     * @param string $MchPrivateKeyContent
+     * @param string $MchCertSerialNo
+     * @param string $AppId
+     * @param string $OutTradeNo
+     * @param string $Description
+     * @param string $NotifyUrl
+     * @param int $Total
+     * @param string $OpenId
+     * @param string $Attach
+     * @param string $Currency
      * @return array
      */
-    public static function Place(string $MchId, string $MchPrivateKeyContent, string $MchCertSerialNo, string $AppId, string $OutTradeNo, string $Description, string $NotifyUrl, int $Total, string $Attach, string $Currency = 'CNY') : array {
+    public static function Place(string $MchId, string $MchPrivateKeyContent, string $MchCertSerialNo, string $AppId, string $OutTradeNo, string $Description, string $NotifyUrl, int $Total, string $OpenId, string $Attach, string $Currency = 'CNY') : array {
         // 组装微信下单需要的数据格式
         $bodies = [
             'mchid' => $MchId,
@@ -39,11 +40,14 @@ class App
                 'total' => $Total,
                 'currency' => $Currency,
             ],
-            'attach' => $Attach
+            'attach' => $Attach,
+            'payer' => [
+                'openid' => $OpenId,
+            ]
         ];
         $time = time();
         $method = 'POST';
-        $url = 'https://api.mch.weixin.qq.com/v3/pay/transactions/app';
+        $url = 'https://api.mch.weixin.qq.com/v3/pay/transactions/jsapi';
         $timestamp = (string)$time;
         $nonce = strtoupper(md5(Str::Nonce(32)));
         $body = json_encode($bodies);
