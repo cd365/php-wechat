@@ -67,7 +67,7 @@ class JsApi
             'User-Agent: */*',
             'Authorization: '.$authorization,
         ];
-        $bodies = json_decode(Curl::GetBody(Curl::Post(self::$UrlPlace,$body,$header)),true);
+        $bodies = json_decode(Curl::GetBody(Curl::Post($url,$body,$header)),true);
         if (!is_array($bodies)){
             return [];
         }

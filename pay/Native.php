@@ -63,7 +63,7 @@ class Native
             'User-Agent: */*',
             'Authorization: '.$authorization,
         ];
-        return Curl::GetBody(Curl::Post(self::$UrlPlace,$body,$header));
+        return Curl::GetBody(Curl::Post($url,$body,$header));
     }
 
 }
