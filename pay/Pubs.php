@@ -10,7 +10,7 @@ use xooooooox\nonce\Str;
  * Class Communal
  * @package xooooooox\wechat\pay
  */
-class Publics
+class Pubs
 {
 
     /**
