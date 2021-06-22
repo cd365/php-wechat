@@ -80,7 +80,7 @@ class OfficialAccountWebPageAuth
      * 检验授权凭证(access_token)是否有效
      * @param string $AccessToken access_token
      * @param string $Openid openid
-     * @return array {"errcode":0,"errmsg":"ok"}, {"errcode":40003,"errmsg":"invalid openid"}
+     * @return array {"errcode":0,"errmsg":"ok"} | {"errcode":40003,"errmsg":"invalid openid"}
      */
     public static function VerifyAccessTokenIsValid(string $AccessToken, string $Openid) : array {
         $url = 'https://api.weixin.qq.com/sns/auth?access_token='.$AccessToken.'&openid='.$Openid;
