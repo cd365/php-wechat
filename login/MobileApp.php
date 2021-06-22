@@ -18,11 +18,11 @@ class MobileApp
      * 获取AccessToken
      * @param string $AppId
      * @param string $AppSecret
-     * @param string $code
+     * @param string $Code
      * @return array
      */
-    public static function GetAccessToken(string $AppId, string $AppSecret, string $code) : array {
-        $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.$AppId.'&secret='.$AppSecret.'&code='.$code.'&grant_type=authorization_code';
+    public static function GetAccessToken(string $AppId, string $AppSecret, string $Code) : array {
+        $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.$AppId.'&secret='.$AppSecret.'&code='.$Code.'&grant_type=authorization_code';
         $result = Curl::GetBody(Curl::Get($url));
         $bag = json_decode($result,true);
         if (!is_array($bag)){
