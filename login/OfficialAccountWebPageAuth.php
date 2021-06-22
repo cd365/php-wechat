@@ -22,7 +22,7 @@ class OfficialAccountWebPageAuth
      * @param string $State 重定向后会带上state参数,开发者可以填写a-zA-Z0-9的参数值,最多128字节
      * @return string 如果用户同意授权,页面将跳转至 redirect_uri/?code=CODE&state=STATE
      */
-    public static function UserAuthScopeUri(string $AppId, string $RedirectUri, string $Scope = 'snsapi_base', string $State = 'STATE') : string {
+    public static function GetUserAuthScopeUri(string $AppId, string $RedirectUri, string $Scope = 'snsapi_base', string $State = 'STATE') : string {
         $RedirectUri = urlencode($RedirectUri); // 使用 urlencode 对链接进行处理
         return 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$AppId.'&redirect_uri='.$RedirectUri.'&response_type=code&scope='.$Scope.'&state='.$State.'#wechat_redirect';
     }

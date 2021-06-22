@@ -21,7 +21,7 @@ class Applets
      * @param string $JsCode 授权code
      * @return array {"openid":"用户唯一标识","session_key":"会话密钥","unionid":"用户在开放平台的唯一标识符,若当前小程序已绑定到微信开放平台帐号下会返回","errcode":40029,"errmsg":"错误信息"}
      */
-    public static function Code2Session(string $AppId, string $AppSecret, string $JsCode) : array {
+    public static function GetCode2Session(string $AppId, string $AppSecret, string $JsCode) : array {
         $url = 'https://api.weixin.qq.com/sns/jscode2session?appid='.$AppId.'&secret='.$AppSecret.'&js_code='.$JsCode.'&grant_type=authorization_code';
         $result = Curl::GetBody(Curl::Get($url));
         $bag = json_decode($result,true);
